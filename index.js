@@ -1,4 +1,8 @@
+// packages needed for this application
 const inquirer = require('inquirer');
+
+// array for adding generated employees to
+const newEmployee = [];
 
 const createLog = () => {
     return inquirer.prompt([
@@ -18,7 +22,8 @@ const createLog = () => {
                 if (pass) {
                     return true;
                 }
-                return 'Please enter a valid email address';
+                console.log('Please enter a valid email address');
+                return false;
             }
         },
         {
