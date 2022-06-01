@@ -4,6 +4,7 @@ const inquirer = require('inquirer');
 // importing 
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 
 // array for adding generated employees to
 const newEmployee = [];
