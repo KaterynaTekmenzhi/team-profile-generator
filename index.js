@@ -3,6 +3,7 @@ const inquirer = require('inquirer');
 
 // importing 
 const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
 
 // array for adding generated employees to
 const newEmployee = [];
@@ -47,17 +48,23 @@ const createManager = () => {
     })
 }
 
-const createEngineer = () => {
+const createEmployee = () => {
     return inquirer.prompt([
         {
-            type: 'input',
-            name: 'name',
-            message: 'What is the engineer name?'
+            type: 'list',
+            name: 'role',
+            message: 'Input employees role',
+            choices: ['Engineer', 'Intern']
+        },
+        {
+            type: 'number',
+            name: 'id',
+            message: 'Input employees id'
         },
         {
             type: 'input',
             name: 'email',
-            message: 'What is the engineer email?',
+            message: 'Input employees email address',
             validate: function(value) {
                 var pass = value.match(
                     /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/
@@ -70,22 +77,54 @@ const createEngineer = () => {
             }
         },
         {
-            name: 'id',
-            message: 'What is the employee id?',
-            type: 'number'
+            type: 'input',
+            name: 'github',
+            message: 'Input Engineers github username',
+            when: (answers) => {
+                if (answers.role === 'Engineer') {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         },
         {
             type: 'input',
-            name: 'github',
-            message: 'What is the engineer github username?',
+            name: 'school',
+            message: 'Input Interns school name',
+            when: (answers) => {
+                if (answers.role === 'Intern') {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         },
+        {
+            type: 'confirm',
+            name: 'addAnother',
+            message: 'Add another employee?',
+            default: true
+        }
     ])
     .then((answer) => {
-        const engineer = new Engineer(answer.name, answer.id, answer.email, answer.github);
-        newEmployee.push(engineer);
-        console.log(newEmployee);
+        const addAnother = answer.addAnother;
+        if (answer.role === 'Engineer') {
+            const engineer = new Engineer(answer.name, answer.id, answer.email, answer.github);
+            newEmployee.push(engineer);
+        } else if (answer.role === 'Intern') {
+            const intern = new Intern(answer.name, answer.id, answer.email, answer.school);
+            newEmployee.push(intern);
+        }
+        if (addAnother) {
+            return createEmployee(newEmployee);
+        }
+        else {
+            return newEmployee;
+        }
     })
-}
+};
 
-createManager();
+// createEmployee();
+// createManager();
 console.log(newEmployee);
