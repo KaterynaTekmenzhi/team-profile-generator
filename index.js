@@ -10,6 +10,7 @@ const generateHTML = require('./src/writeFile');
 // array for adding generated employees to
 const newEmployee = [];
 
+
 const createManager = () => {
     return inquirer.prompt([
         {

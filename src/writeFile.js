@@ -1,43 +1,46 @@
+const { writeFileSync } = require('fs');
+const mainHTML = './dist/index.html';
+
 // generates HTML file from template
-function generateHTML(newEmployee) {
+const generateHTML = (cardStack) => {
     return `
     <!DOCTYPE html>
     <html lang="en">
-    
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        <title>Profile Generator</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <title>Team Profile</title>
     </head>
-    
     <body>
-        <header>
-            <h1 class="text-center">Employee Directory</h1>
-        </header>
-        <section class="card-group">
-            ${newEmployee.map(generateCards)}
-        </section>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <div class="container">
+            <div class="card-columns">
+                ${cardStack.map(generateCards).join('')}
+            </div>
+        </div>
     </body>
-    </html>`    
-};
+    </html>`
+}
 
-function generateCards(newEmployee) {
+const generateCards = (employee) => {
     return `
     <div class="card">
         <div class="card-header">
-            <h2 class="card-title">${newEmployee.getName()}</h2>
+            <h2 class="card-title">${employee.getName()}</h2>
         </div>
         <div class="card-body">
-            <h3>${newEmployee.getRole()}</h3>
+            <h3>${employee.getRole()}</h3>
             <ul>
-                <li>ID: ${newEmployee.getId()}</li>
-                <li>Email: ${newEmployee.getEmail()}</li>
+                <li>ID: ${employee.getId()}</li>
+                <li>Email: ${employee.getEmail()}</li>
             </ul>
         </div>
     </div>`
 }
 
-module.exports = generateHTML;
+const writeFile = (newEmployee) => {
+    writeFileSync(mainHTML, generateHTML(newEmployee));
+}
+
+module.exports = writeFile;
