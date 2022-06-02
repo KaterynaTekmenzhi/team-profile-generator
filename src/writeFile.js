@@ -1,3 +1,4 @@
+// // template helper code
 const { writeFileSync } = require('fs');
 const mainHTML = './dist/index.html';
 
@@ -31,7 +32,7 @@ const generateCards = (employee) => {
         </div>
         <div class="card-body">
             <h3>${employee.getRole()}</h3>
-            <ul>
+            <ul class >
                 <li>ID: ${employee.getId()}</li>
                 <li>Email: ${employee.getEmail()}</li>
             </ul>
