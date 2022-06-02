@@ -1,7 +1,7 @@
 const Employee = require('../lib/Employee');
 
-// initialize manager object
-test('should initialize manager object', () => {
+// initialize employee object
+test('should initialize employee object', () => {
     const newEmployee = new Employee('Kat', 1, 'kat@gmail.com');
 
     expect(newEmployee.name).toEqual('Kat');
@@ -9,7 +9,26 @@ test('should initialize manager object', () => {
     expect(newEmployee.email).toEqual('kat@gmail.com');
 });
 
+// return Employee
 test('should return role', () => {
-    const newEmployee = new Employee('Kat', 1, 'kat@gmail.com', '253-555-5555');
+    const newEmployee = new Employee('Kat', 1, 'kat@gmail.com');
     expect(newEmployee.getRole()).toEqual('Employee');
+});
+
+// return name
+test('should return name', () => {
+    const newEmployee = new Employee('Kat', 1, 'kat@gmail.com');
+    expect(newEmployee.getName()).toEqual('Kat');
+});
+
+// return id
+test('should return id', () => {
+    const newEmployee = new Employee('Kat', 1, 'kat@gmail.com');
+    expect(newEmployee.getId()).toEqual(1);
+});
+
+// return email
+test('should return email', () => {
+    const newEmployee = new Employee('Kat', 1, 'kat@gmail.com');
+    expect(newEmployee.getEmail()).toEqual('kat@gmail.com');
 });
