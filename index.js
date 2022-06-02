@@ -1,10 +1,11 @@
 // packages needed for this application
 const inquirer = require('inquirer');
-
+const fs = require('fs');
 // importing 
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const generateHTML = require('./src/writeFile');
 
 // array for adding generated employees to
 const newEmployee = [];
@@ -127,5 +128,32 @@ const createEmployee = () => {
 };
 
 // createEmployee();
-// createManager();
-console.log(newEmployee);
+// createManager() 
+//     .then(createEmployee)
+//     .then((newEmployee) => {
+//         return writeFile(newEmployee);
+
+//     })
+
+// const init = () => {
+//     createManager()
+//         .then(createEmployee)
+//         const generateTeam = generateHTML(newEmployee)
+//         .then((answer) => fs.writeFileSync('./dist/index.html', generateTeam(newEmployee)))
+//         .then(() => console.log('Successfully wrote to index.html'))
+//         .catch((err) => console.log(err));
+// };
+
+// console.log(newEmployee);
+// init();
+
+createManager()
+		.then(createEmployee)
+		.then((teamArray) => {
+			generateHTML(teamArray);
+		})
+		.then(() => {
+			console.log(`Successfully completed!`);
+		})
+		.catch((err) => console.error(err));
+

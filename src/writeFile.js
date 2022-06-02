@@ -1,4 +1,4 @@
-// generates the html for the page
+// generates HTML file from template
 function generateHTML(newEmployee) {
     return `
     <!DOCTYPE html>
@@ -24,4 +24,20 @@ function generateHTML(newEmployee) {
     </html>`    
 };
 
-// function generateCards()
+function generateCards(newEmployee) {
+    return `
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">${newEmployee.getName()}</h2>
+        </div>
+        <div class="card-body">
+            <h3>${newEmployee.getRole()}</h3>
+            <ul>
+                <li>ID: ${newEmployee.getId()}</li>
+                <li>Email: ${newEmployee.getEmail()}</li>
+            </ul>
+        </div>
+    </div>`
+}
+
+module.exports = generateHTML;
