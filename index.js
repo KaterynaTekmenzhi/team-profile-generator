@@ -49,10 +49,12 @@ const createManager = () => {
         const manager = new Manager(answer.name, answer.id, answer.email, answer.officeNumber);
         newEmployee.push(manager);
         console.log(newEmployee);
+        console.log('Manager created');
     })
 }
 
 const createEmployee = () => {
+    console.log('What type of employee would you like to add?');
     return inquirer.prompt([
         {
             type: 'list',

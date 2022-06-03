@@ -16,33 +16,29 @@ const generateHTML = (cardStack) => {
         <title>Team Generator</title>
     </head>
     <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card-columns">
-                        ${cardStack}
-                    </div>
-                </div>
-            </div>
-        </div>
+        <header class="navbar bg-danger">
+            <h1 class="text-center w-100 bg-danger text-white">Team Generator</h1>
+        </header>
+
+        <main class="cardStack d-flex flex-wrap m-3 justify-content-center">
+            ${cardStack}
+        </main>
+        
     </body>
     </html>
     `
 }
 
-const trackEmployee = (newEmployee) => {
-    switch (newEmployee.getRole()) {
+const trackEmployee = (employee) => {
+    switch (employee.getRole()) {
         case 'Engineer':
-            newEmployee.push(new Engineer(newEmployee.getName(), newEmployee.getId(), newEmployee.getEmail(), newEmployee.getGithub()));
-            break;
+            return `Github: <a href="https://github.com/${employee.getGithub()}">${employee.getGithub()}</a>`;
         case 'Intern':
-            newEmployee.push(new Intern(newEmployee.getName(), newEmployee.getId(), newEmployee.getEmail(), newEmployee.getSchool()));
-            break;
+            return `School: ${employee.getSchool()}`;
         case 'Manager':
-            newEmployee.push(new Manager(newEmployee.getName(), newEmployee.getId(), newEmployee.getEmail(), newEmployee.getOfficeNumber()));
-            break;
+            return `Office Number: ${employee.getOfficeNumber()}`;
         default:
-            console.log('Error: Employee role not found');
+            return 'No information available';
     }
 }
 
@@ -50,15 +46,17 @@ const generateCards = (newEmployee) => {
     let cardStack = '';
     newEmployee.forEach((employee) => {
         cardStack += `
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">${employee.getRole()}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">ID: ${employee.getId()}</h6>
-                    <p class="card-text">${employee.getName()}</p>
-                    <p class="card-text">${employee.getEmail()}</p>
-                    <p class="card-text">${employee.getRole()}</p>
-                </div>
+        <div class="card-body border border-dark m-2 p-2">
+            <div class=" bg-primary bg-gradient" style="max-width: 16rem;">
+                <div class="card-header">${employee.getRole()}</div>
+                <h5 class="card-title">${employee.name}</h5>
             </div>
+            <ul class="list-group list-group-flush border-0" id="list">
+                <li class="list-group-item">ID: ${employee.getId()}</li>
+                <li class="list-group-item"><a href="mailto: kat@example.com" class="link-info" subject="subject text">${employee.getEmail()}</a></li>
+                <li class="list-group-item" id="type">${trackEmployee(employee)}</li>
+            </ul>
+        </div>
         `
     })
     return cardStack;
