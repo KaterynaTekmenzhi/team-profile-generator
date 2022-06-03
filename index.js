@@ -6,7 +6,7 @@ const fs = require('fs');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-const generateHTML = require('./src/writeFile');
+const writeFile = require('./src/writeFile');
 
 // array for adding generated employees to
 const newEmployee = [];
@@ -59,6 +59,11 @@ const createEmployee = () => {
             name: 'role',
             message: 'Input employees role',
             choices: ['Engineer', 'Intern']
+        },
+        {
+            type: 'input',
+            name: 'name',
+            message: 'What is the employees name?'
         },
         {
             type: 'number',
@@ -151,8 +156,8 @@ const createEmployee = () => {
 
 createManager()
 		.then(createEmployee)
-		.then((teamArray) => {
-			generateHTML(teamArray);
+		.then((newEmployee) => {
+			writeFile(newEmployee);
 		})
 		.then(() => {
 			console.log(`Successfully completed!`);
